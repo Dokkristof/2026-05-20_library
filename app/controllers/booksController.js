@@ -45,13 +45,15 @@ const BooksController = {
         try {
             await BooksController.tryStore(req, res)
         }catch(error) {
-            res.status(500)
-            res.json({
-                success: false,
-                message: 'Error! The query is failed!',
-                error: error.message
-            })
-        }
+    console.log(error)
+
+    res.status(500)
+    res.json({
+        success: false,
+        message: 'Error! The query is failed!',
+        error: error.message
+    })
+}
     },
     async tryStore(req, res) {
         const books = await Books.create(req.body)
