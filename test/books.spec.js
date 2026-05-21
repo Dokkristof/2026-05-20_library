@@ -7,7 +7,8 @@ describe('/api/books', () => {
     let id = null
 
   it('post /books', async () => {
-      const res = await request(app)
+    
+    const res = await request(app)
           .post('/api/books')
           .set('Accept', 'application/json')
           .send({
@@ -17,8 +18,8 @@ describe('/api/books', () => {
           })
           .expect('Content-Type', restype)
           .expect(201)
-
-      id = res.body.data.id
+    
+        id = res.body.data.id
   })
 
     it('get /books', async () => {
@@ -36,7 +37,8 @@ describe('/api/books', () => {
             .send({
                 title: 'Another',
                 isbn: '987654321',
-                author: 'Jane Doe'
+                author: 'Jane Doe',
+                totalCopies: '100'
             })
             .expect('Content-Type', restype)
             .expect(200)

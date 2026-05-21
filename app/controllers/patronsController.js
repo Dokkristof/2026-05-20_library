@@ -84,7 +84,8 @@ const PatronsController = {
         const recordNumber = await Patrons.update(req.body, {
             where: { id: req.params.id }
         })
-        if(recordNumber == 0) {
+        const updatedCount = Array.isArray(recordNumber) ? recordNumber[0] : recordNumber
+        if(updatedCount === 0) {
             throw new Error('Fail! Record not found!')
         }
         const patrons = await Patrons.findByPk(req.params.id)

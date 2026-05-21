@@ -3,18 +3,21 @@ import app from '../app/app.js'
 
 describe('/api/patrons', () => {
     const restype= 'application/json; charset=utf-8'
-    var token = null
+    let id = null
 
     it('post /patrons ', async () => {
-      await request(app)
+      const res = await request(app)
         .post('/api/patrons')
         .set('Accept', 'application/json')
         .send({
-            name: 'Something'
+            idNumber: '123456789',
+            fullname: 'Something',
+            email: 'something@example.com'
         })
         .expect('Content-Type', restype)
         .expect(201)
 
+      id = res.body.data.id
     })
     it('get /patrons', async () => {
       await request(app)
@@ -25,17 +28,18 @@ describe('/api/patrons', () => {
     })
     it('put /patrons/:id', async () => {
       await request(app)
-        .put('/api/patrons/1')
+        .put(`/api/patrons/${id}`)
         .set('Accept', 'application/json')
         .send({
-            name: 'Another'
+            fullname: 'Another',
+            email: 'another@example.com'
         })
         .expect('Content-Type', restype)
         .expect(200)
     })
     it('delete /patrons/:id', async () => {
       await request(app)
-        .delete('/api/patrons/1')
+        .delete(`/api/patrons/${id}`)
         .set('Accept', 'application/json')
         .expect(200)
     })

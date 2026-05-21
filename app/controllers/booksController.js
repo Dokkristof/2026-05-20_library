@@ -86,7 +86,8 @@ const BooksController = {
         const recordNumber = await Books.update(req.body, {
             where: { id: req.params.id }
         })
-        if(recordNumber == 0) {
+        const updatedCount = Array.isArray(recordNumber) ? recordNumber[0] : recordNumber
+        if(updatedCount === 0) {
             throw new Error('Fail! Record not found!')
         }
         const books = await Books.findByPk(req.params.id)
